@@ -1,0 +1,1 @@
+wanneer je buiten het "originele speelveld" en je gaat schieten. Colliden de bullets al direct met iets
