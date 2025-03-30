@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SpaceDefence.Collision;
+using System;
 using System.Runtime.CompilerServices;
 
 namespace SpaceDefence
@@ -30,6 +31,13 @@ namespace SpaceDefence
 
         public override void OnCollision(GameObject other)
         {
+            System.Console.WriteLine("Alien collided with " + other.GetType());
+
+            if (other is Supply)
+            {
+                return;
+            }
+
             RandomMove();
             this.level++;
             base.OnCollision(other);

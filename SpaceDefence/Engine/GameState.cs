@@ -11,6 +11,7 @@ namespace SpaceDefence.Engine
     {
         StartScreen,
         Playing,
-        Paused
+        Paused,
+        GameOver
     }
 }

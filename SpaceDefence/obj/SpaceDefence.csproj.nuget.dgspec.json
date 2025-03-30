@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\3. Space Defence\\SpaceDefence\\SpaceDefence.csproj": {}
+    "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\spaceInvadersFinal\\SpaceDefence\\SpaceDefence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\3. Space Defence\\SpaceDefence\\SpaceDefence.csproj": {
+    "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\spaceInvadersFinal\\SpaceDefence\\SpaceDefence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\3. Space Defence\\SpaceDefence\\SpaceDefence.csproj",
+        "projectUniqueName": "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\spaceInvadersFinal\\SpaceDefence\\SpaceDefence.csproj",
         "projectName": "SpaceDefence",
-        "projectPath": "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\3. Space Defence\\SpaceDefence\\SpaceDefence.csproj",
+        "projectPath": "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\spaceInvadersFinal\\SpaceDefence\\SpaceDefence.csproj",
         "packagesPath": "C:\\Users\\juria\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\3. Space Defence\\SpaceDefence\\obj\\",
+        "outputPath": "C:\\Users\\juria\\OneDrive\\Bureaublad\\workspace\\hbo\\leerjaar3\\minor-game-dev\\spaceInvader\\spaceInvadersFinal\\SpaceDefence\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

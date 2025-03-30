@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SpaceDefence.Engine;
 
 namespace SpaceDefence
 {
@@ -17,6 +18,8 @@ namespace SpaceDefence
         private List<GameObject> _toBeRemoved;
         private List<GameObject> _toBeAdded;
         private ContentManager _content;
+
+        public GameState CurrentState;
 
         public Random RNG { get; private set; }
         public Ship Player { get; private set; }
@@ -155,8 +158,8 @@ namespace SpaceDefence
         public void GameOver()
         {
             // Logica voor Game Over (bijv. terug naar main menu, herstart, etc.)
-            System.Diagnostics.Debug.WriteLine("Game Over! The alien got you!");
-            
+            this.CurrentState = GameState.GameOver;
+
             // Bijvoorbeeld: Reset player position, stop het spel, etc.
         }
 
@@ -164,6 +167,16 @@ namespace SpaceDefence
         {
 
         }
+
+        public GameState GetCurrentGameState()
+        {
+            return this.CurrentState;
+        }
+
+        public void SetGameState(GameState state)
+        {
+            this.CurrentState = state;
+        }   
 
     }
 }

@@ -36,11 +36,11 @@ namespace SpaceDefence.Screens
             );
         }
 
-        public void Update(SpaceDefence game)
+        public void Update(GameManager gm)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                game.ChangeState(GameState.Playing);
+                gm.SetGameState(GameState.Playing);
             }
         }
 
@@ -48,16 +48,16 @@ namespace SpaceDefence.Screens
         {
             spriteBatch.Begin();
 
-            // Semi-transparante achtergrond overlay
-            Texture2D overlay = new Texture2D(graphicsDevice, 1, 1);
+            //// Semi-transparante achtergrond overlay
+            //Texture2D overlay = new Texture2D(graphicsDevice, 1, 1);
 
-            // opacity toevoegen aan het pauze scherm
-            overlay.SetData(new[] { new Color(0, 0, 0, 150) });
+            //// opacity toevoegen aan het pauze scherm
+            //overlay.SetData(new[] { new Color(0, 0, 0, 150) });
 
-            // full screen maken
-            spriteBatch.Draw(overlay,
-                     new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height),
-                     Color.White);
+            //// full screen maken
+            //spriteBatch.Draw(overlay,
+            //         new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height),
+            //         Color.White);
 
             spriteBatch.DrawString(font, pauseMessage, positionPausemessage, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
             spriteBatch.End();

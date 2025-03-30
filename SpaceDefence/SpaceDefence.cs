@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpaceDefence.Engine;
 using SpaceDefence.Screens;
+using System;
 namespace SpaceDefence
 {
     public class SpaceDefence : Game
@@ -12,11 +13,11 @@ namespace SpaceDefence
         private GameManager _gameManager;
 
         // start screen stuff bruv
-        private GameState _currentState;
         private StartScreen _startScreen;
 
         // pause screen stuff bruv
         private PauseScreen _pauseScreen;
+        private GameOverScreen _gameOverScreen;
 
 
         public SpaceDefence()
@@ -33,8 +34,9 @@ namespace SpaceDefence
 
             _startScreen = new StartScreen();
             _pauseScreen = new PauseScreen();
+            _gameOverScreen = new GameOverScreen();
 
-            _currentState = GameState.StartScreen;
+            //_currentState = GameState.StartScreen;
         }
 
         protected override void Initialize()
@@ -50,6 +52,19 @@ namespace SpaceDefence
             _gameManager.Initialize(Content, this, player);
             _gameManager.AddGameObject(player);
             _gameManager.AddGameObject(new Alien());
+
+            // set the game state to the start screen   
+            _gameManager.SetGameState(GameState.StartScreen);
+
+
+            Random rnd = new Random();
+            
+            for (int i = 0; i < 5; i++)
+            {
+                int asteroidSize = rnd.Next(10, 30);
+                _gameManager.AddGameObject(new Asteroid(asteroidSize));
+            }
+
             _gameManager.AddGameObject(new Supply());
         }
 
@@ -59,29 +74,33 @@ namespace SpaceDefence
             _gameManager.Load(Content);
             _startScreen.LoadContent(GraphicsDevice, Content);
             _pauseScreen.LoadContent(GraphicsDevice, Content);
+            _gameOverScreen.LoadContent(GraphicsDevice, Content);
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                _currentState = GameState.Paused;
+                _gameManager.SetGameState(GameState.Paused);
 
-            switch (_currentState)
+            switch (_gameManager.GetCurrentGameState())
             {
                 case GameState.StartScreen:
-                    _startScreen.Update(this);
+                    _startScreen.Update(_gameManager);
                     break;
                 case GameState.Playing:
 
                     if(Keyboard.GetState().IsKeyDown(Keys.P))
                     {
-                        _currentState = GameState.Paused;
+                        _gameManager.SetGameState(GameState.Paused);
                     }
 
                     _gameManager.Update(gameTime);
                     break;
                 case GameState.Paused:
-                    _pauseScreen.Update(this);
+                    _pauseScreen.Update(_gameManager);
+                    break;
+                case GameState.GameOver:
+                    _gameOverScreen.Update(_gameManager);
                     break;
                 default:
                     break;
@@ -95,7 +114,7 @@ namespace SpaceDefence
         {
             GraphicsDevice.Clear(Color.Black);
 
-            switch (_currentState)
+            switch (_gameManager.CurrentState)
             {
                 case GameState.StartScreen:
                     _startScreen.Draw(_spriteBatch);
@@ -107,17 +126,16 @@ namespace SpaceDefence
                     _gameManager.Draw(gameTime, _spriteBatch);
                     _pauseScreen.Draw(_spriteBatch, _graphics.GraphicsDevice);
                     break;
+                case GameState.GameOver:
+                    _gameManager.Draw(gameTime, _spriteBatch);
+                    _gameOverScreen.Draw(_spriteBatch, _graphics.GraphicsDevice);
+                    break;
                 default:
                     break;
             }
 
 
             base.Draw(gameTime);
-        }
-
-        public void ChangeState(GameState newState)
-        {
-            _currentState = newState;
         }
 
     }

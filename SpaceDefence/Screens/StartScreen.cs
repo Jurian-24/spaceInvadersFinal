@@ -44,15 +44,15 @@ namespace SpaceDefence.Screens
             );
         }
 
-        public void Update(SpaceDefence game)
+        public void Update(GameManager gm)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                game.ChangeState(GameState.Playing); 
+                gm.SetGameState(GameState.Playing);
             }
             else if (Keyboard.GetState().IsKeyDown(Keys.F1))
             {
-                game.Exit();
+                // TODO spel afluisten
             }
         }
 
