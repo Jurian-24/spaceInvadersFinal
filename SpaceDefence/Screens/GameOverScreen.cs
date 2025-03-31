@@ -43,7 +43,7 @@ namespace SpaceDefence.Screens
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
 
             // Semi-transparante achtergrond overlay
             Texture2D overlay = new Texture2D(graphicsDevice, 1, 1);
@@ -59,7 +59,7 @@ namespace SpaceDefence.Screens
             System.Diagnostics.Debug.WriteLine($"test: {font}");
 
             spriteBatch.DrawString(font, gameOverMessage, positionGameOverMessage, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-            spriteBatch.End();
+            //spriteBatch.End();
         }
     }
 }

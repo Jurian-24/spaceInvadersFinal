@@ -46,21 +46,7 @@ namespace SpaceDefence.Screens
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            spriteBatch.Begin();
-
-            //// Semi-transparante achtergrond overlay
-            //Texture2D overlay = new Texture2D(graphicsDevice, 1, 1);
-
-            //// opacity toevoegen aan het pauze scherm
-            //overlay.SetData(new[] { new Color(0, 0, 0, 150) });
-
-            //// full screen maken
-            //spriteBatch.Draw(overlay,
-            //         new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height),
-            //         Color.White);
-
             spriteBatch.DrawString(font, pauseMessage, positionPausemessage, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-            spriteBatch.End();
         }
     }
 }

@@ -19,6 +19,8 @@ namespace SpaceDefence
         private PauseScreen _pauseScreen;
         private GameOverScreen _gameOverScreen;
 
+        private Texture2D _background;
+
 
         public SpaceDefence()
         {
@@ -36,6 +38,7 @@ namespace SpaceDefence
             _pauseScreen = new PauseScreen();
             _gameOverScreen = new GameOverScreen();
 
+
             //_currentState = GameState.StartScreen;
         }
 
@@ -45,6 +48,7 @@ namespace SpaceDefence
             _gameManager = GameManager.GetGameManager();
             base.Initialize();
 
+            _background = Content.Load<Texture2D>("travisScott");
             // place the player at the center of the screen
             Ship player = new Ship(new Point(GraphicsDevice.Viewport.Width/2,GraphicsDevice.Viewport.Height/2));
 
@@ -112,6 +116,16 @@ namespace SpaceDefence
 
         protected override void Draw(GameTime gameTime)
         {
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(
+                _background,
+                new Rectangle(0, 0, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight),
+                Color.White
+            );
+
+            //base.Draw(gameTime, spriteBatch);
+
             GraphicsDevice.Clear(Color.Black);
 
             switch (_gameManager.CurrentState)
@@ -134,7 +148,7 @@ namespace SpaceDefence
                     break;
             }
 
-
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
 

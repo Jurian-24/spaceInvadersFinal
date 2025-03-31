@@ -58,12 +58,12 @@ namespace SpaceDefence.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
             spriteBatch.DrawString(font, startMessage, positionStartMessage, Color.White);
             spriteBatch.DrawString(font, quitMessage, quitMessagePos, Color.White);
 
 
-            spriteBatch.End();
+            //spriteBatch.End();
         }
 
     }

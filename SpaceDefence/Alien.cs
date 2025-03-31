@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SpaceDefence.Collision;
 using System;
 using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SpaceDefence
 {
@@ -33,12 +34,13 @@ namespace SpaceDefence
         {
             System.Console.WriteLine("Alien collided with " + other.GetType());
 
-            if (other is Supply)
+            if (other is Supply || other is Asteroid)
             {
                 return;
             }
 
             RandomMove();
+
             this.level++;
             base.OnCollision(other);
         }
@@ -65,14 +67,7 @@ namespace SpaceDefence
 
             Vector2 direction = gm.Player.GetPosition().Center.ToVector2() - this._circleCollider.Center;
 
-            float distance = direction.Length();
-            float gameOverRange = 50f; 
-
-            if (distance < gameOverRange)
-            {
-                // TODO: change to start screen
-                gm.GameOver();
-            }
+                        
 
             if (direction != Vector2.Zero)
             {
@@ -81,6 +76,7 @@ namespace SpaceDefence
 
             float speed = 1.5f + (level * 0.3f); // adjust the speed based on the level of the alien
             this._circleCollider.Center += direction * speed;
+
         }
 
     }

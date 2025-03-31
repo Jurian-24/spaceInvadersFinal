@@ -115,12 +115,12 @@ namespace SpaceDefence
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) 
         {
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
             foreach (GameObject gameObject in _gameObjects)
             {
                 gameObject.Draw(gameTime, spriteBatch);
             }
-            spriteBatch.End();
+            //spriteBatch.End();
         }
 
         /// <summary>
@@ -157,10 +157,7 @@ namespace SpaceDefence
 
         public void GameOver()
         {
-            // Logica voor Game Over (bijv. terug naar main menu, herstart, etc.)
             this.CurrentState = GameState.GameOver;
-
-            // Bijvoorbeeld: Reset player position, stop het spel, etc.
         }
 
         public void showStartScreen()
