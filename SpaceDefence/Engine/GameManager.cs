@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -25,6 +27,10 @@ namespace SpaceDefence
         public Ship Player { get; private set; }
         public InputManager InputManager { get; private set; }
         public Game Game { get; private set; }
+
+        private float spawnTimer = 0f;
+        private float spawnInterval = 5f; 
+        private int maxAliens = 10; 
 
         public static GameManager GetGameManager()
         {
@@ -84,6 +90,24 @@ namespace SpaceDefence
         public void Update(GameTime gameTime) 
         {
             InputManager.Update();
+
+            System.Diagnostics.Debug.WriteLine(CountAliens());
+
+            spawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (spawnTimer >= spawnInterval && CountAliens() < maxAliens)
+            {
+                SpawnAlien();
+
+                // create a chance of travis spawning
+                if (RNG.Next(0, 100) < 10)
+                {
+                    TravisScottBatman travis = new TravisScottBatman();
+                    AddGameObject(travis);
+                }
+
+                spawnTimer = 0f; 
+                spawnInterval = Math.Max(1f, spawnInterval * 0.95f); 
+            }
 
             // Handle input
             HandleInput(InputManager);
@@ -157,6 +181,7 @@ namespace SpaceDefence
 
         public void GameOver()
         {
+            Level.ResetLevel();
             this.CurrentState = GameState.GameOver;
         }
 
@@ -175,5 +200,15 @@ namespace SpaceDefence
             this.CurrentState = state;
         }   
 
+        private int CountAliens()
+        {
+            return _gameObjects.Count(obj => obj is Alien);
+        }
+
+        private void SpawnAlien()
+        {
+            Alien alien = new Alien();
+            AddGameObject(alien);
+        }
     }
 }

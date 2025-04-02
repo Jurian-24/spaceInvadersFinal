@@ -1,0 +1,34 @@
+Voor de planeten: aarde en mars
+Je haalt oppy op vanuit de aarde en brengt hem naar mars. Aan het eind van de game zie je hoeveel rovers er op mars zijn.
+
+Cactus Jack shield, beschermt tegen aliens en draaien rond als bananen in mario kart. 3 cactussen heb je en per collision gaat er een van af.
+
+Gort als enemy. Hij kan spawnen uit het niets en is heel snel.
+
+Wapen upgrade, laser die asteroids kapot kan schieten
+
+Add at least 2 planetes to the level. When the player goes to one planet, they pick up cargo. At the other planet they can drop it off. (0.5p)
+Whenever the player drops off cargo they score points. The score should always be visible on screen. (HUD) (1p)
+There should always be some indication of wether or not the player is carrying any cargo. (HUD) (1p)
+
+More enemy types (.5-2p depending on complexity of the enemies)
+Healthbars (~1p for healthbars that follow both enemies and the player)
+Weapon upgrades (1-2p depending on depth)
+
+Add a new asteroid enemy that does not move, and destrois both the player and enemies on touch. (0.5p) (klaar)
+Spawn more enemies over time, slowly ramping up the difficulty. (0.5p) (klaar)
+
+---
+
+Capyabra enemy:
+- Beweegt heel snel naar je toe
+- is one hit
+- spawned random
+
+Planeten toevoegen:
+- Aarde
+	- haal je oppy van op
+	- oppy hangt aan de achterkant van de ship
+	- kan kapot gaan door asteroids of aliens (heeft dus een eigen rectangle collider)
+- Mars
+	- breng je oppy naar toe

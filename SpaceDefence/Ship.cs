@@ -12,7 +12,8 @@ namespace SpaceDefence
         private Texture2D ship_body;
         private Texture2D base_turret;
         private Texture2D laser_turret;
-        private float buffTimer = 10;
+        private Texture2D capybaraGun;
+        private float buffTimer = 0;
         private float buffDuration = 10f;
         private RectangleCollider _rectangleCollider;
         private Point target;
@@ -21,6 +22,11 @@ namespace SpaceDefence
         private float rotation;
         private const float FRICTION = 0.99f;
         private const float acceleration = 0.1f;
+
+        public string buffType = "laser";
+
+        private float capybaraGunCooldown = 0f;
+        private const float CAPYBARA_GUN_COOLDOWN_TIME = 2f;
 
         private Vector2 facingDirection;
 
@@ -43,6 +49,7 @@ namespace SpaceDefence
             ship_body = content.Load<Texture2D>("ship_body");
             base_turret = content.Load<Texture2D>("base_turret");
             laser_turret = content.Load<Texture2D>("laser_turret");
+            capybaraGun = content.Load<Texture2D>("capybaraGun");
             _rectangleCollider.shape.Size = ship_body.Bounds.Size;
             _rectangleCollider.shape.Location -= new Point(ship_body.Width/2, ship_body.Height/2);
             base.Load(content);
@@ -54,7 +61,13 @@ namespace SpaceDefence
         {
             base.HandleInput(inputManager);
             target = inputManager.CurrentMouseState.Position;
-            if(inputManager.LeftMousePress())
+
+            if (capybaraGunCooldown > 0)
+            {
+                capybaraGunCooldown -= (float)GameManager.GetGameManager().Game.TargetElapsedTime.TotalSeconds;
+            }
+
+            if (inputManager.LeftMousePress())
             {
 
                 Vector2 aimDirection = LinePieceCollider.GetDirection(GetPosition().Center, target);
@@ -63,9 +76,17 @@ namespace SpaceDefence
                 {
                     GameManager.GetGameManager().AddGameObject(new Bullet(turretExit, aimDirection, 150));
                 }
-                else
+                else if (buffTimer > 0 && buffType == "laser")
                 {
                     GameManager.GetGameManager().AddGameObject(new Laser(new LinePieceCollider(turretExit, target.ToVector2()),400));
+                }
+                else if (buffTimer > 0 && buffType == "capybaraGun" && capybaraGunCooldown <= 0)
+                {
+                    GameManager.GetGameManager().AddGameObject(new CapybaraGun(turretExit, new Vector2(aimDirection.X - 100, aimDirection.Y - 100), 150));
+                    GameManager.GetGameManager().AddGameObject(new CapybaraGun(turretExit, aimDirection, 250));
+                    GameManager.GetGameManager().AddGameObject(new CapybaraGun(turretExit, new Vector2(aimDirection.X + 100, aimDirection.Y + 100), 350));
+                    
+                    capybaraGunCooldown = CAPYBARA_GUN_COOLDOWN_TIME;
                 }
             }
 
@@ -75,12 +96,12 @@ namespace SpaceDefence
             velocity *= FRICTION;
 
             _rectangleCollider.shape.Location += velocity.ToPoint();
-
-
         }
 
         public override void Update(GameTime gameTime)
         {
+            
+
             // Update the Buff timer
             if (buffTimer > 0)
                 buffTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -110,12 +131,19 @@ namespace SpaceDefence
                 turretLocation.Location = _rectangleCollider.shape.Center;
                 spriteBatch.Draw(base_turret, turretLocation, null, Color.White, aimAngle, turretLocation.Size.ToVector2() / 2f, SpriteEffects.None, 0);
             }
-            else
+            else if(buffTimer > 0 && buffType == "laser")
             {
                 Rectangle turretLocation = laser_turret.Bounds;
                 turretLocation.Location = _rectangleCollider.shape.Center;
                 spriteBatch.Draw(laser_turret, turretLocation, null, Color.White, aimAngle, turretLocation.Size.ToVector2() / 2f, SpriteEffects.None, 0);
             }
+            else if(buffTimer > 0 && buffType == "capybaraGun")
+            {
+                Rectangle turretLocation = laser_turret.Bounds;
+                turretLocation.Location = _rectangleCollider.shape.Center;
+                spriteBatch.Draw(capybaraGun, turretLocation, null, Color.White, aimAngle, turretLocation.Size.ToVector2() / 2f, SpriteEffects.None, 0);
+            }
+
             base.Draw(gameTime, spriteBatch);
         }
 

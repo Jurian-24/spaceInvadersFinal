@@ -4,6 +4,13 @@ using Microsoft.Xna.Framework.Input;
 using SpaceDefence.Engine;
 using SpaceDefence.Screens;
 using System;
+
+/**
+ * Even een kleine sidenote. Er zullen voor ene paar berekeningen chatgpt gebruikt zijn. Ik heb voor zo ver ik weet alleen de acceleratie van de alien
+ * aangepast met chatgpt. Het is momenteel 7:15, ik heb niet geslapen en ik zie de zon op komen. Ik weet niet of ik morgen wakker wordt. Maar zoals Marcus Aurelius
+ * ooit zei: "Wanneer je wakker wordt, bedenk dan dat je nooit meer wakker wordt. En wanneer je in slaap valt, bedenk dan dat je wakker wordt."
+ */
+
 namespace SpaceDefence
 {
     public class SpaceDefence : Game
@@ -28,8 +35,8 @@ namespace SpaceDefence
             _graphics.IsFullScreen = false;
 
             // set the size of the screen
-            _graphics.PreferredBackBufferWidth = 1440;
-            _graphics.PreferredBackBufferHeight = 980;
+            _graphics.PreferredBackBufferWidth = 1800;
+            _graphics.PreferredBackBufferHeight = 1000;
             
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -47,15 +54,18 @@ namespace SpaceDefence
             //initialize the GameManager
             _gameManager = GameManager.GetGameManager();
             base.Initialize();
-
+            
             _background = Content.Load<Texture2D>("travisScott");
             // place the player at the center of the screen
-            Ship player = new Ship(new Point(GraphicsDevice.Viewport.Width/2,GraphicsDevice.Viewport.Height/2));
+            Ship player = new Ship(new Point(GraphicsDevice.Viewport.Width / 2,GraphicsDevice.Viewport.Height / 2));
 
             // add the starting objects to the GameManager
             _gameManager.Initialize(Content, this, player);
             _gameManager.AddGameObject(player);
             _gameManager.AddGameObject(new Alien());
+
+            //travis ttesting comment out for chance
+            //_gameManager.AddGameObject(new TravisScottBatman());
 
             // set the game state to the start screen   
             _gameManager.SetGameState(GameState.StartScreen);
@@ -70,6 +80,7 @@ namespace SpaceDefence
             }
 
             _gameManager.AddGameObject(new Supply());
+            _gameManager.AddGameObject(new SupplyCapybaraGun());
         }
 
         protected override void LoadContent()
@@ -85,6 +96,8 @@ namespace SpaceDefence
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 _gameManager.SetGameState(GameState.Paused);
+
+
 
             switch (_gameManager.GetCurrentGameState())
             {
@@ -149,6 +162,7 @@ namespace SpaceDefence
             }
 
             _spriteBatch.End();
+            
             base.Draw(gameTime);
         }
 

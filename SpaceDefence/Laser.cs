@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -38,7 +38,7 @@ namespace SpaceDefence
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             Rectangle target = new Rectangle((int)linePiece.Start.X, (int)linePiece.Start.Y, sprite.Width, (int)linePiece.Length);
-            spriteBatch.Draw(sprite, target, null,Color.White, linePiece.GetAngle(), new Vector2(sprite.Width/2f,sprite.Height),SpriteEffects.None,1 );
+            spriteBatch.Draw(sprite, target, null, Color.White, linePiece.GetAngle(), new Vector2(sprite.Width / 2f, sprite.Height), SpriteEffects.None, 1);
             base.Draw(gameTime, spriteBatch);
         }
     }

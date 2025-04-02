@@ -43,9 +43,6 @@ namespace SpaceDefence.Screens
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            //spriteBatch.Begin();
-
-            // Semi-transparante achtergrond overlay
             Texture2D overlay = new Texture2D(graphicsDevice, 1, 1);
 
             // opacity toevoegen aan het pauze scherm
@@ -56,10 +53,7 @@ namespace SpaceDefence.Screens
                      new Rectangle(0, 0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height),
                      Color.White);
 
-            System.Diagnostics.Debug.WriteLine($"test: {font}");
-
             spriteBatch.DrawString(font, gameOverMessage, positionGameOverMessage, Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0f);
-            //spriteBatch.End();
         }
     }
 }

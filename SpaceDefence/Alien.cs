@@ -14,11 +14,11 @@ namespace SpaceDefence
         private Texture2D _texture;
         private float playerClearance = 100;
 
-        private int level;
+        private int speedLevel;
 
         public Alien() 
         {
-            level = 1;
+            speedLevel = 1;
         }
 
         public override void Load(ContentManager content)
@@ -32,33 +32,81 @@ namespace SpaceDefence
 
         public override void OnCollision(GameObject other)
         {
-            System.Console.WriteLine("Alien collided with " + other.GetType());
+            if (other is Bullet || other is Laser || other is CapybaraGun)
+            {
+                this.speedLevel++;
+                DestroyAlien();
+                RandomMove();
+            }
 
-            if (other is Supply || other is Asteroid)
+            if (other is Supply)
             {
                 return;
             }
 
-            RandomMove();
+            if(other is Ship)
+            {
+                GameManager.GetGameManager().SetGameState(Engine.GameState.GameOver);
+            }
 
-            this.level++;
             base.OnCollision(other);
         }
 
         public void RandomMove()
         {
             GameManager gm = GameManager.GetGameManager();
-            _circleCollider.Center = gm.RandomScreenLocation();
+            int screenWidth = gm.Game.GraphicsDevice.Viewport.Width;
+            int screenHeight = gm.Game.GraphicsDevice.Viewport.Height;
 
+            Random random = new Random();
+            Vector2 spawnPosition = Vector2.Zero;
+
+            // Kies een willekeurige zijde buiten het scherm (0 = links, 1 = rechts, 2 = boven, 3 = onder)
+            int side = random.Next(4);
+
+            switch (side)
+            {
+                case 0: // Links van het scherm
+                    spawnPosition = new Vector2(-_circleCollider.Radius * 2, random.Next(0, screenHeight));
+                    break;
+                case 1: // Rechts van het scherm
+                    spawnPosition = new Vector2(screenWidth + _circleCollider.Radius * 2, random.Next(0, screenHeight));
+                    break;
+                case 2: // Boven het scherm
+                    spawnPosition = new Vector2(random.Next(0, screenWidth), -_circleCollider.Radius * 2);
+                    break;
+                case 3: // Onder het scherm
+                    spawnPosition = new Vector2(random.Next(0, screenWidth), screenHeight + _circleCollider.Radius * 2);
+                    break;
+            }
+
+            _circleCollider.Center = spawnPosition;
+
+            // Controleer of de alien te dicht bij de speler spawnt, anders opnieuw spawnen
             Vector2 centerOfPlayer = gm.Player.GetPosition().Center.ToVector2();
             while ((_circleCollider.Center - centerOfPlayer).Length() < playerClearance)
-                _circleCollider.Center = gm.RandomScreenLocation();
+            {
+                // Kies opnieuw een spawnlocatie
+                side = random.Next(4);
+                switch (side)
+                {
+                    case 0: spawnPosition = new Vector2(-_circleCollider.Radius * 2, random.Next(0, screenHeight)); break;
+                    case 1: spawnPosition = new Vector2(screenWidth + _circleCollider.Radius * 2, random.Next(0, screenHeight)); break;
+                    case 2: spawnPosition = new Vector2(random.Next(0, screenWidth), -_circleCollider.Radius * 2); break;
+                    case 3: spawnPosition = new Vector2(random.Next(0, screenWidth), screenHeight + _circleCollider.Radius * 2); break;
+                }
+                _circleCollider.Center = spawnPosition;
+            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _circleCollider.GetBoundingBox(), Color.White);
-            base.Draw(gameTime, spriteBatch);
+            for (int i = 0; i < Level.level; i++)
+            {
+                spriteBatch.Draw(_texture, _circleCollider.GetBoundingBox(), Color.White);
+                
+                base.Draw(gameTime, spriteBatch);
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -67,16 +115,23 @@ namespace SpaceDefence
 
             Vector2 direction = gm.Player.GetPosition().Center.ToVector2() - this._circleCollider.Center;
 
-                        
-
             if (direction != Vector2.Zero)
             {
                 direction.Normalize(); 
             }
 
-            float speed = 1.5f + (level * 0.3f); // adjust the speed based on the level of the alien
+            float speed = 1.5f + (speedLevel * 0.3f); // adjust the speed based on the level of the alien
             this._circleCollider.Center += direction * speed;
 
+        }
+
+        public void DestroyAlien()
+        {
+            GameManager.GetGameManager().RemoveGameObject(this);
+            if(this.speedLevel % 3 == 0)
+            {
+                Level.IncreaseLevel();
+            }
         }
 
     }
