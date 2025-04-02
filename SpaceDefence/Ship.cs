@@ -30,6 +30,10 @@ namespace SpaceDefence
 
         private Vector2 facingDirection;
 
+        public bool isCarryingCargo = false;    
+        public Oppy cargoOppy;
+        public int cargoPoints = 0;
+
         /// <summary>
         /// The player character
         /// </summary>
@@ -41,6 +45,7 @@ namespace SpaceDefence
             velocity = Vector2.Zero;
             facingDirection = Vector2.Zero;
             rotation = 0;
+            cargoOppy = null;
         }
 
         public override void Load(ContentManager content)
@@ -100,7 +105,12 @@ namespace SpaceDefence
 
         public override void Update(GameTime gameTime)
         {
-            
+            if(isCarryingCargo)
+            {
+                //GameManager gm = GameManager.GetGameManager();
+
+                //gm.AddGameObject(cargoOppy);
+            }
 
             // Update the Buff timer
             if (buffTimer > 0)
@@ -215,6 +225,12 @@ namespace SpaceDefence
             {
                 _rectangleCollider.shape.Y = 0;
             }
+        }
+    
+        public void loadOppyOnShip(Oppy oppy)
+        {
+            cargoOppy = oppy;
+            isCarryingCargo = true;
         }
     }
 }

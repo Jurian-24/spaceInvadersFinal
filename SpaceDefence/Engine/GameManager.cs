@@ -90,9 +90,7 @@ namespace SpaceDefence
         public void Update(GameTime gameTime) 
         {
             InputManager.Update();
-
-            System.Diagnostics.Debug.WriteLine(CountAliens());
-
+            System.Diagnostics.Debug.WriteLine(Player.isCarryingCargo);
             spawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (spawnTimer >= spawnInterval && CountAliens() < maxAliens)
             {

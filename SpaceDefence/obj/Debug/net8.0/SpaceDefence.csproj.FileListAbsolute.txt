@@ -71,3 +71,6 @@ C:\Users\juria\OneDrive\Bureaublad\workspace\hbo\leerjaar3\minor-game-dev\spaceI
 C:\Users\juria\OneDrive\Bureaublad\workspace\hbo\leerjaar3\minor-game-dev\spaceInvader\spaceInvadersFinal\SpaceDefence\bin\Debug\net8.0\Content\CapybaraGun.xnb
 C:\Users\juria\OneDrive\Bureaublad\workspace\hbo\leerjaar3\minor-game-dev\spaceInvader\spaceInvadersFinal\SpaceDefence\bin\Debug\net8.0\Content\capybaraBullet.xnb
 C:\Users\juria\OneDrive\Bureaublad\workspace\hbo\leerjaar3\minor-game-dev\spaceInvader\spaceInvadersFinal\SpaceDefence\bin\Debug\net8.0\Content\travisScottBatman.xnb
+C:\Users\juria\OneDrive\Bureaublad\workspace\hbo\leerjaar3\minor-game-dev\spaceInvader\spaceInvadersFinal\SpaceDefence\bin\Debug\net8.0\Content\earth.xnb
+C:\Users\juria\OneDrive\Bureaublad\workspace\hbo\leerjaar3\minor-game-dev\spaceInvader\spaceInvadersFinal\SpaceDefence\bin\Debug\net8.0\Content\mars.xnb
+C:\Users\juria\OneDrive\Bureaublad\workspace\hbo\leerjaar3\minor-game-dev\spaceInvader\spaceInvadersFinal\SpaceDefence\bin\Debug\net8.0\Content\oppyRoverCargo.xnb

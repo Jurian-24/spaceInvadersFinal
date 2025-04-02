@@ -14,10 +14,10 @@ namespace SpaceDefence
     {
         private RectangleCollider _rectangleCollider;
         private Texture2D _texture;
-        private float speed = 2.0f;      // Basis snelheid richting speler
-        private float zigzagAmplitude = 50f; // Hoeveelheid zigzag
-        private float zigzagFrequency = 6.0f; // Hoe snel hij zigzagt
-        private float timeElapsed = 0f;  // Tijd voor sinusberekening
+        private float speed = 2.0f;      // speed
+        private float zigzagAmplitude = 50f; // amount of zigzaggen
+        private float zigzagFrequency = 6.0f; // zigzag speed
+        private float timeElapsed = 0f; 
 
         public TravisScottBatman()
         {

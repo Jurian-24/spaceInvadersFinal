@@ -28,6 +28,7 @@ namespace SpaceDefence
 
         private Texture2D _background;
 
+        HUD hud;
 
         public SpaceDefence()
         {
@@ -59,8 +60,13 @@ namespace SpaceDefence
             // place the player at the center of the screen
             Ship player = new Ship(new Point(GraphicsDevice.Viewport.Width / 2,GraphicsDevice.Viewport.Height / 2));
 
+
             // add the starting objects to the GameManager
             _gameManager.Initialize(Content, this, player);
+
+            _gameManager.AddGameObject(new Earth());
+            _gameManager.AddGameObject(new Mars());
+
             _gameManager.AddGameObject(player);
             _gameManager.AddGameObject(new Alien());
 
@@ -81,6 +87,9 @@ namespace SpaceDefence
 
             _gameManager.AddGameObject(new Supply());
             _gameManager.AddGameObject(new SupplyCapybaraGun());
+
+            hud = new HUD(player);
+            hud.Load(Content);
         }
 
         protected override void LoadContent()
@@ -90,6 +99,8 @@ namespace SpaceDefence
             _startScreen.LoadContent(GraphicsDevice, Content);
             _pauseScreen.LoadContent(GraphicsDevice, Content);
             _gameOverScreen.LoadContent(GraphicsDevice, Content);
+
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -97,7 +108,7 @@ namespace SpaceDefence
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 _gameManager.SetGameState(GameState.Paused);
 
-
+            hud.Update(gameTime);
 
             switch (_gameManager.GetCurrentGameState())
             {
@@ -140,6 +151,8 @@ namespace SpaceDefence
             //base.Draw(gameTime, spriteBatch);
 
             GraphicsDevice.Clear(Color.Black);
+
+            hud.Draw(_spriteBatch);
 
             switch (_gameManager.CurrentState)
             {

@@ -11,19 +11,14 @@ Add at least 2 planetes to the level. When the player goes to one planet, they p
 Whenever the player drops off cargo they score points. The score should always be visible on screen. (HUD) (1p)
 There should always be some indication of wether or not the player is carrying any cargo. (HUD) (1p)
 
-More enemy types (.5-2p depending on complexity of the enemies)
+More enemy types (.5-2p depending on complexity of the enemies)(klaar)
 Healthbars (~1p for healthbars that follow both enemies and the player)
-Weapon upgrades (1-2p depending on depth)
+Weapon upgrades (1-2p depending on depth)(klaar)
 
 Add a new asteroid enemy that does not move, and destrois both the player and enemies on touch. (0.5p) (klaar)
 Spawn more enemies over time, slowly ramping up the difficulty. (0.5p) (klaar)
 
 ---
-
-Capyabra enemy:
-- Beweegt heel snel naar je toe
-- is one hit
-- spawned random
 
 Planeten toevoegen:
 - Aarde

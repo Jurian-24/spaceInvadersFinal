@@ -59,44 +59,9 @@ namespace SpaceDefence
             int screenHeight = gm.Game.GraphicsDevice.Viewport.Height;
 
             Random random = new Random();
-            Vector2 spawnPosition = Vector2.Zero;
-
-            // Kies een willekeurige zijde buiten het scherm (0 = links, 1 = rechts, 2 = boven, 3 = onder)
-            int side = random.Next(4);
-
-            switch (side)
-            {
-                case 0: // Links van het scherm
-                    spawnPosition = new Vector2(-_circleCollider.Radius * 2, random.Next(0, screenHeight));
-                    break;
-                case 1: // Rechts van het scherm
-                    spawnPosition = new Vector2(screenWidth + _circleCollider.Radius * 2, random.Next(0, screenHeight));
-                    break;
-                case 2: // Boven het scherm
-                    spawnPosition = new Vector2(random.Next(0, screenWidth), -_circleCollider.Radius * 2);
-                    break;
-                case 3: // Onder het scherm
-                    spawnPosition = new Vector2(random.Next(0, screenWidth), screenHeight + _circleCollider.Radius * 2);
-                    break;
-            }
+            Vector2 spawnPosition = gm.RandomScreenLocation();
 
             _circleCollider.Center = spawnPosition;
-
-            // Controleer of de alien te dicht bij de speler spawnt, anders opnieuw spawnen
-            Vector2 centerOfPlayer = gm.Player.GetPosition().Center.ToVector2();
-            while ((_circleCollider.Center - centerOfPlayer).Length() < playerClearance)
-            {
-                // Kies opnieuw een spawnlocatie
-                side = random.Next(4);
-                switch (side)
-                {
-                    case 0: spawnPosition = new Vector2(-_circleCollider.Radius * 2, random.Next(0, screenHeight)); break;
-                    case 1: spawnPosition = new Vector2(screenWidth + _circleCollider.Radius * 2, random.Next(0, screenHeight)); break;
-                    case 2: spawnPosition = new Vector2(random.Next(0, screenWidth), -_circleCollider.Radius * 2); break;
-                    case 3: spawnPosition = new Vector2(random.Next(0, screenWidth), screenHeight + _circleCollider.Radius * 2); break;
-                }
-                _circleCollider.Center = spawnPosition;
-            }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
